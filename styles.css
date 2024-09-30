@@ -11,17 +11,44 @@ label {
 }
 .slider-container {
   position: relative;
-  height: 50px;
+  width: 80%;
 }
 input[type="range"] {
   position: absolute;
-  width: 80%;
+  width: 100%;
+  pointer-events: none; /* Prevent pointer events on the slider itself */
 }
-input[type="range"]:first-of-type {
-  z-index: 2;
+input[type="range"]:focus {
+  outline: none;
 }
-input[type="range"]:last-of-type {
-  z-index: 1;
+input[type="range"]::-webkit-slider-runnable-track {
+  height: 8px;
+  background: #ddd;
+}
+input[type="range"]::-webkit-slider-thumb {
+  width: 16px;
+  height: 16px;
+  background: #007bff;
+  cursor: pointer;
+  pointer-events: all; /* Allow pointer events on the thumb */
+}
+input[type="range"]::-moz-range-track {
+  height: 8px;
+  background: #ddd;
+}
+input[type="range"]::-moz-range-thumb {
+  width: 16px;
+  height: 16px;
+  background: #007bff;
+  cursor: pointer;
+  pointer-events: all; /* Allow pointer events on the thumb */
+}
+input[type="range"]::-ms-thumb {
+  width: 16px;
+  height: 16px;
+  background: #007bff;
+  cursor: pointer;
+  pointer-events: all; /* Allow pointer events on the thumb */
 }
 select {
   padding: 5px;
