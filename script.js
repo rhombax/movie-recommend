@@ -1,47 +1,48 @@
 // script.js
 
-// Initialize runtime slider
-const runtimeSlider = document.getElementById('runtimeSlider');
-noUiSlider.create(runtimeSlider, {
-  start: [60, 240],
-  connect: true,
-  range: {
-    'min': 60,
-    'max': 240
-  },
-  step: 1
-});
+function updateRuntimeRange() {
+  const runtimeMinSlider = document.getElementById('runtimeMinSlider');
+  const runtimeMaxSlider = document.getElementById('runtimeMaxSlider');
+  const runtimeMin = Number(runtimeMinSlider.value);
+  const runtimeMax = Number(runtimeMaxSlider.value);
 
-runtimeSlider.noUiSlider.on('update', function(values, handle) {
-  document.getElementById('runtimeValueMin').textContent = Math.round(values[0]);
-  document.getElementById('runtimeValueMax').textContent = Math.round(values[1]);
-});
+  // Prevent the sliders from crossing
+  if (runtimeMin > runtimeMax - 1) {
+    if (runtimeMinSlider === document.activeElement) {
+      runtimeMaxSlider.value = runtimeMin + 1;
+    } else {
+      runtimeMinSlider.value = runtimeMax - 1;
+    }
+  }
 
-// Initialize year slider
-const yearSlider = document.getElementById('yearSlider');
-noUiSlider.create(yearSlider, {
-  start: [1900, 2023],
-  connect: true,
-  range: {
-    'min': 1900,
-    'max': 2023
-  },
-  step: 1
-});
+  document.getElementById('runtimeValueMin').textContent = runtimeMinSlider.value;
+  document.getElementById('runtimeValueMax').textContent = runtimeMaxSlider.value;
+}
 
-yearSlider.noUiSlider.on('update', function(values, handle) {
-  document.getElementById('yearValueMin').textContent = Math.round(values[0]);
-  document.getElementById('yearValueMax').textContent = Math.round(values[1]);
-});
+function updateYearRange() {
+  const yearMinSlider = document.getElementById('yearMinSlider');
+  const yearMaxSlider = document.getElementById('yearMaxSlider');
+  const yearMin = Number(yearMinSlider.value);
+  const yearMax = Number(yearMaxSlider.value);
+
+  // Prevent the sliders from crossing
+  if (yearMin > yearMax - 1) {
+    if (yearMinSlider === document.activeElement) {
+      yearMaxSlider.value = yearMin + 1;
+    } else {
+      yearMinSlider.value = yearMax - 1;
+    }
+  }
+
+  document.getElementById('yearValueMin').textContent = yearMinSlider.value;
+  document.getElementById('yearValueMax').textContent = yearMaxSlider.value;
+}
 
 async function getRecommendations() {
-  const runtimeValues = runtimeSlider.noUiSlider.get();
-  const yearValues = yearSlider.noUiSlider.get();
-
-  const runtimeMin = Math.round(runtimeValues[0]);
-  const runtimeMax = Math.round(runtimeValues[1]);
-  const yearMin = Math.round(yearValues[0]);
-  const yearMax = Math.round(yearValues[1]);
+  const runtimeMin = document.getElementById('runtimeMinSlider').value;
+  const runtimeMax = document.getElementById('runtimeMaxSlider').value;
+  const yearMin = document.getElementById('yearMinSlider').value;
+  const yearMax = document.getElementById('yearMaxSlider').value;
   const genre = document.getElementById('genre').value;
 
   const apiKey = '89b4c2ba13a0aade50098290bd5bf588'; // Your TMDb API key
@@ -63,3 +64,9 @@ function displayRecommendations(movies) {
     recommendationsDiv.appendChild(movieElement);
   });
 }
+
+// Initial call to display default slider values
+window.onload = function() {
+  updateRuntimeRange();
+  updateYearRange();
+};
