@@ -6,10 +6,13 @@ function updateDualRange(slider1, slider2, displayMin, displayMax) {
   displayMin.textContent = min;
   displayMax.textContent = max;
 
-  // Prevent sliders from crossing over each other
-  if (slider1.value > slider2.value) {
-    slider1.value = max;
-    slider2.value = min;
+  // Ensure sliders do not cross over
+  if (parseInt(slider1.value) > parseInt(slider2.value)) {
+    if (slider1 === document.activeElement) {
+      slider2.value = slider1.value;
+    } else {
+      slider1.value = slider2.value;
+    }
   }
 }
 
@@ -18,6 +21,7 @@ const runtimeSlider1 = document.getElementById('runtimeSlider1');
 const runtimeSlider2 = document.getElementById('runtimeSlider2');
 const runtimeValueMin = document.getElementById('runtimeValueMin');
 const runtimeValueMax = document.getElementById('runtimeValueMax');
+
 runtimeSlider1.addEventListener('input', function() {
   updateDualRange(runtimeSlider1, runtimeSlider2, runtimeValueMin, runtimeValueMax);
 });
@@ -30,6 +34,7 @@ const yearSlider1 = document.getElementById('yearSlider1');
 const yearSlider2 = document.getElementById('yearSlider2');
 const yearValueMin = document.getElementById('yearValueMin');
 const yearValueMax = document.getElementById('yearValueMax');
+
 yearSlider1.addEventListener('input', function() {
   updateDualRange(yearSlider1, yearSlider2, yearValueMin, yearValueMax);
 });
