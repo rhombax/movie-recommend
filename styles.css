@@ -11,6 +11,7 @@ label {
 }
 input[type="range"] {
   width: 200px;
+  display: block;
 }
 input {
   margin-bottom: 10px;
