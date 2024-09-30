@@ -6,6 +6,14 @@ function updateRuntimeValue() {
   const runtimeMax = document.getElementById('runtimeMax').value;
   document.getElementById('runtimeValueMin').textContent = runtimeMin;
   document.getElementById('runtimeValueMax').textContent = runtimeMax;
+
+  // Ensure that min cannot be greater than max and vice versa
+  if (parseInt(runtimeMin) > parseInt(runtimeMax)) {
+    document.getElementById('runtimeMin').value = runtimeMax;
+  }
+  if (parseInt(runtimeMax) < parseInt(runtimeMin)) {
+    document.getElementById('runtimeMax').value = runtimeMin;
+  }
 }
 
 // Update displayed year values
@@ -14,6 +22,14 @@ function updateYearValue() {
   const yearMax = document.getElementById('yearMax').value;
   document.getElementById('yearValueMin').textContent = yearMin;
   document.getElementById('yearValueMax').textContent = yearMax;
+
+  // Ensure that min cannot be greater than max and vice versa
+  if (parseInt(yearMin) > parseInt(yearMax)) {
+    document.getElementById('yearMin').value = yearMax;
+  }
+  if (parseInt(yearMax) < parseInt(yearMin)) {
+    document.getElementById('yearMax').value = yearMin;
+  }
 }
 
 async function getRecommendations() {
