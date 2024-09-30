@@ -5,16 +5,21 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Movie Recommender</title>
 <link rel="stylesheet" href="styles.css">
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/noUiSlider/14.6.4/nouislider.css" integrity="sha512-Tuk9aqrBcP/8ag+0nOfh9UoFB57WtfohftAAuD6/5m0xJo9mw5gRWJGNQpWmeXEXK8ZazHveNIPWz9ps0+V5wA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
 </head>
 <body>
   <h1>Movie Recommender</h1>
   <form id="movieForm">
     <label>Runtime (minutes): <span id="runtimeValueMin">60</span> - <span id="runtimeValueMax">240</span></label>
-    <div id="runtimeSlider"></div>
+    <div class="slider-container" id="runtimeContainer">
+      <input type="range" min="60" max="240" value="60" id="runtimeMinSlider" oninput="updateRuntimeRange()">
+      <input type="range" min="60" max="240" value="240" id="runtimeMaxSlider" oninput="updateRuntimeRange()">
+    </div>
 
     <label>Release Year: <span id="yearValueMin">1900</span> - <span id="yearValueMax">2023</span></label>
-    <div id="yearSlider"></div>
+    <div class="slider-container" id="yearContainer">
+      <input type="range" min="1900" max="2023" value="1900" id="yearMinSlider" oninput="updateYearRange()">
+      <input type="range" min="1900" max="2023" value="2023" id="yearMaxSlider" oninput="updateYearRange()">
+    </div>
 
     <label for="genre">Genre:</label>
     <select id="genre" name="genre">
@@ -35,7 +40,6 @@
 
   <div id="recommendations"></div>
 
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/noUiSlider/14.6.4/nouislider.min.js" integrity="sha512-FTcM/6v1wB+2vCm8gMtY5s+1cgd5+5Ry9odqlxZH95W6mXvOdF/b68n6GS0khINg0DECk/eWOmyyfMDvLi1zBw==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
   <script src="script.js"></script>
 </body>
 </html>
