@@ -1,12 +1,30 @@
 // script.js
 
+// Update displayed runtime values
+function updateRuntimeValue() {
+  const runtimeMin = document.getElementById('runtimeMin').value;
+  const runtimeMax = document.getElementById('runtimeMax').value;
+  document.getElementById('runtimeValueMin').textContent = runtimeMin;
+  document.getElementById('runtimeValueMax').textContent = runtimeMax;
+}
+
+// Update displayed year values
+function updateYearValue() {
+  const yearMin = document.getElementById('yearMin').value;
+  const yearMax = document.getElementById('yearMax').value;
+  document.getElementById('yearValueMin').textContent = yearMin;
+  document.getElementById('yearValueMax').textContent = yearMax;
+}
+
 async function getRecommendations() {
-  const runtime = document.getElementById('runtime').value;
-  const year = document.getElementById('year').value;
+  const runtimeMin = document.getElementById('runtimeMin').value;
+  const runtimeMax = document.getElementById('runtimeMax').value;
+  const yearMin = document.getElementById('yearMin').value;
+  const yearMax = document.getElementById('yearMax').value;
   const genre = document.getElementById('genre').value;
 
   const apiKey = '89b4c2ba13a0aade50098290bd5bf588'; // Your TMDb API key
-  const apiUrl = `https://api.themoviedb.org/3/discover/movie?api_key=89b4c2ba13a0aade50098290bd5bf588&language=en-US&sort_by=popularity.desc&include_adult=false&include_video=false&page=1&primary_release_year=${year}&with_genres=${genre}&with_runtime.lte=${runtime}`;
+  const apiUrl = `https://api.themoviedb.org/3/discover/movie?api_key=${apiKey}&language=en-US&sort_by=popularity.desc&include_adult=false&include_video=false&page=1&primary_release_date.gte=${yearMin}-01-01&primary_release_date.lte=${yearMax}-12-31&with_genres=${genre}&with_runtime.gte=${runtimeMin}&with_runtime.lte=${runtimeMax}`;
 
   const response = await fetch(apiUrl);
   const data = await response.json();
@@ -23,18 +41,6 @@ function displayRecommendations(movies) {
     movieElement.innerHTML = `<h3>${movie.title}</h3><p>${movie.overview}</p>`;
     recommendationsDiv.appendChild(movieElement);
   });
-}
-
-// Update displayed runtime value
-function updateRuntimeValue() {
-  const runtime = document.getElementById('runtime').value;
-  document.getElementById('runtimeValue').textContent = runtime;
-}
-
-// Update displayed year value
-function updateYearValue() {
-  const year = document.getElementById('year').value;
-  document.getElementById('yearValue').textContent = year;
 }
 
 // Initial call to display default slider values
