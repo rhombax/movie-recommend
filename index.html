@@ -11,12 +11,14 @@
   <form id="movieForm">
     <label>Runtime (minutes): <span id="runtimeValueMin">60</span> - <span id="runtimeValueMax">240</span></label>
     <div class="slider-container" id="runtimeContainer">
+      <div class="slider-track" id="runtimeTrack"></div>
       <input type="range" min="60" max="240" value="60" id="runtimeSlider1" step="1">
       <input type="range" min="60" max="240" value="240" id="runtimeSlider2" step="1">
     </div>
 
     <label>Release Year: <span id="yearValueMin">1900</span> - <span id="yearValueMax">2023</span></label>
     <div class="slider-container" id="yearContainer">
+      <div class="slider-track" id="yearTrack"></div>
       <input type="range" min="1900" max="2023" value="1900" id="yearSlider1" step="1">
       <input type="range" min="1900" max="2023" value="2023" id="yearSlider2" step="1">
     </div>
