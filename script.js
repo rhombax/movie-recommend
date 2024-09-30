@@ -1,6 +1,6 @@
 // script.js
 
-function updateDualRange(slider1, slider2, displayMin, displayMax) {
+function updateDualRange(slider1, slider2, displayMin, displayMax, track) {
   const min = Math.min(slider1.value, slider2.value);
   const max = Math.max(slider1.value, slider2.value);
   displayMin.textContent = min;
@@ -14,6 +14,11 @@ function updateDualRange(slider1, slider2, displayMin, displayMax) {
       slider1.value = slider2.value;
     }
   }
+
+  // Update the track to show the selected range
+  const percentMin = ((min - slider1.min) / (slider1.max - slider1.min)) * 100;
+  const percentMax = ((max - slider1.min) / (slider1.max - slider1.min)) * 100;
+  track.style.background = `linear-gradient(to right, #ddd ${percentMin}%, #007bff ${percentMin}%, #007bff ${percentMax}%, #ddd ${percentMax}%)`;
 }
 
 // Initialize runtime slider
@@ -21,12 +26,13 @@ const runtimeSlider1 = document.getElementById('runtimeSlider1');
 const runtimeSlider2 = document.getElementById('runtimeSlider2');
 const runtimeValueMin = document.getElementById('runtimeValueMin');
 const runtimeValueMax = document.getElementById('runtimeValueMax');
+const runtimeTrack = document.getElementById('runtimeTrack');
 
 runtimeSlider1.addEventListener('input', function() {
-  updateDualRange(runtimeSlider1, runtimeSlider2, runtimeValueMin, runtimeValueMax);
+  updateDualRange(runtimeSlider1, runtimeSlider2, runtimeValueMin, runtimeValueMax, runtimeTrack);
 });
 runtimeSlider2.addEventListener('input', function() {
-  updateDualRange(runtimeSlider1, runtimeSlider2, runtimeValueMin, runtimeValueMax);
+  updateDualRange(runtimeSlider1, runtimeSlider2, runtimeValueMin, runtimeValueMax, runtimeTrack);
 });
 
 // Initialize year slider
@@ -34,12 +40,13 @@ const yearSlider1 = document.getElementById('yearSlider1');
 const yearSlider2 = document.getElementById('yearSlider2');
 const yearValueMin = document.getElementById('yearValueMin');
 const yearValueMax = document.getElementById('yearValueMax');
+const yearTrack = document.getElementById('yearTrack');
 
 yearSlider1.addEventListener('input', function() {
-  updateDualRange(yearSlider1, yearSlider2, yearValueMin, yearValueMax);
+  updateDualRange(yearSlider1, yearSlider2, yearValueMin, yearValueMax, yearTrack);
 });
 yearSlider2.addEventListener('input', function() {
-  updateDualRange(yearSlider1, yearSlider2, yearValueMin, yearValueMax);
+  updateDualRange(yearSlider1, yearSlider2, yearValueMin, yearValueMax, yearTrack);
 });
 
 async function getRecommendations() {
@@ -71,6 +78,6 @@ function displayRecommendations(movies) {
 
 // Initial call to display default slider values
 window.onload = function() {
-  updateDualRange(runtimeSlider1, runtimeSlider2, runtimeValueMin, runtimeValueMax);
-  updateDualRange(yearSlider1, yearSlider2, yearValueMin, yearValueMax);
+  updateDualRange(runtimeSlider1, runtimeSlider2, runtimeValueMin, runtimeValueMax, runtimeTrack);
+  updateDualRange(yearSlider1, yearSlider2, yearValueMin, yearValueMax, yearTrack);
 };
