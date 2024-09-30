@@ -9,13 +9,13 @@
 <body>
   <h1>Movie Recommender</h1>
   <form id="movieForm">
-    <label for="runtimeMin">Runtime (minutes): <span id="runtimeValueMin">60</span> - <span id="runtimeValueMax">240</span></label>
-    <input type="range" id="runtimeMin" name="runtimeMin" min="60" max="240" value="60" oninput="updateRuntimeValue()">
-    <input type="range" id="runtimeMax" name="runtimeMax" min="60" max="240" value="240" oninput="updateRuntimeValue()"><br><br>
+    <label for="runtime">Runtime (minutes): <span id="runtimeValueMin">60</span> - <span id="runtimeValueMax">240</span></label>
+    <input type="range" id="runtimeMin" name="runtimeMin" min="60" max="240" value="60" oninput="updateRuntimeValue()" step="1">
+    <input type="range" id="runtimeMax" name="runtimeMax" min="60" max="240" value="240" oninput="updateRuntimeValue()" step="1"><br><br>
 
-    <label for="yearMin">Release Year: <span id="yearValueMin">1900</span> - <span id="yearValueMax">2023</span></label>
-    <input type="range" id="yearMin" name="yearMin" min="1900" max="2023" value="1900" oninput="updateYearValue()">
-    <input type="range" id="yearMax" name="yearMax" min="1900" max="2023" value="2023" oninput="updateYearValue()"><br><br>
+    <label for="year">Release Year: <span id="yearValueMin">1900</span> - <span id="yearValueMax">2023</span></label>
+    <input type="range" id="yearMin" name="yearMin" min="1900" max="2023" value="1900" oninput="updateYearValue()" step="1">
+    <input type="range" id="yearMax" name="yearMax" min="1900" max="2023" value="2023" oninput="updateYearValue()" step="1"><br><br>
 
     <label for="genre">Genre:</label>
     <select id="genre" name="genre">
