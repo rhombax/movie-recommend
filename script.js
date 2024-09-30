@@ -1,42 +1,47 @@
 // script.js
 
-// Update displayed runtime values
-function updateRuntimeValue() {
-  const runtimeMin = document.getElementById('runtimeMin').value;
-  const runtimeMax = document.getElementById('runtimeMax').value;
-  document.getElementById('runtimeValueMin').textContent = runtimeMin;
-  document.getElementById('runtimeValueMax').textContent = runtimeMax;
+// Initialize runtime slider
+const runtimeSlider = document.getElementById('runtimeSlider');
+noUiSlider.create(runtimeSlider, {
+  start: [60, 240],
+  connect: true,
+  range: {
+    'min': 60,
+    'max': 240
+  },
+  step: 1
+});
 
-  // Ensure that min cannot be greater than max and vice versa
-  if (parseInt(runtimeMin) > parseInt(runtimeMax)) {
-    document.getElementById('runtimeMin').value = runtimeMax;
-  }
-  if (parseInt(runtimeMax) < parseInt(runtimeMin)) {
-    document.getElementById('runtimeMax').value = runtimeMin;
-  }
-}
+runtimeSlider.noUiSlider.on('update', function(values, handle) {
+  document.getElementById('runtimeValueMin').textContent = Math.round(values[0]);
+  document.getElementById('runtimeValueMax').textContent = Math.round(values[1]);
+});
 
-// Update displayed year values
-function updateYearValue() {
-  const yearMin = document.getElementById('yearMin').value;
-  const yearMax = document.getElementById('yearMax').value;
-  document.getElementById('yearValueMin').textContent = yearMin;
-  document.getElementById('yearValueMax').textContent = yearMax;
+// Initialize year slider
+const yearSlider = document.getElementById('yearSlider');
+noUiSlider.create(yearSlider, {
+  start: [1900, 2023],
+  connect: true,
+  range: {
+    'min': 1900,
+    'max': 2023
+  },
+  step: 1
+});
 
-  // Ensure that min cannot be greater than max and vice versa
-  if (parseInt(yearMin) > parseInt(yearMax)) {
-    document.getElementById('yearMin').value = yearMax;
-  }
-  if (parseInt(yearMax) < parseInt(yearMin)) {
-    document.getElementById('yearMax').value = yearMin;
-  }
-}
+yearSlider.noUiSlider.on('update', function(values, handle) {
+  document.getElementById('yearValueMin').textContent = Math.round(values[0]);
+  document.getElementById('yearValueMax').textContent = Math.round(values[1]);
+});
 
 async function getRecommendations() {
-  const runtimeMin = document.getElementById('runtimeMin').value;
-  const runtimeMax = document.getElementById('runtimeMax').value;
-  const yearMin = document.getElementById('yearMin').value;
-  const yearMax = document.getElementById('yearMax').value;
+  const runtimeValues = runtimeSlider.noUiSlider.get();
+  const yearValues = yearSlider.noUiSlider.get();
+
+  const runtimeMin = Math.round(runtimeValues[0]);
+  const runtimeMax = Math.round(runtimeValues[1]);
+  const yearMin = Math.round(yearValues[0]);
+  const yearMax = Math.round(yearValues[1]);
   const genre = document.getElementById('genre').value;
 
   const apiKey = '89b4c2ba13a0aade50098290bd5bf588'; // Your TMDb API key
@@ -58,9 +63,3 @@ function displayRecommendations(movies) {
     recommendationsDiv.appendChild(movieElement);
   });
 }
-
-// Initial call to display default slider values
-window.onload = function() {
-  updateRuntimeValue();
-  updateYearValue();
-};
